@@ -13,3 +13,5 @@ print(pump_example)
 pump_example.turn_off()
 pump_example.set_power(10)
 print(pump_example)
+
+#типа алгоритм вот
