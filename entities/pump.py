@@ -1,7 +1,7 @@
 
 
 class Pump:
-    def __init__(self, pump_id, status="off", speed=0, pressure=0, temperature=25):
+    def __init__(self, pump_id, status="off", speed=0, pressure=0, temperature=25, power=0):
         """
         Инициализация насоса.
 
@@ -10,12 +10,14 @@ class Pump:
         :param speed: Скорость работы насоса (об/мин).
         :param pressure: Давление, создаваемое насосом (бар).
         :param temperature: Температура насоса (°C).
+        :param power: Мощность насоса (кВт).
         """
         self.pump_id = pump_id
         self.status = status
         self.speed = speed
         self.pressure = pressure
         self.temperature = temperature
+        self.power = power  # Мощность насоса
 
     def turn_on(self):
         """Включение насоса."""
@@ -31,6 +33,7 @@ class Pump:
             self.status = "off"
             self.speed = 0
             self.pressure = 0
+            self.power = 0  # При выключении мощность сбрасывается
             print(f"Насос {self.pump_id} выключен.")
         else:
             print(f"Насос {self.pump_id} уже выключен.")
@@ -56,6 +59,18 @@ class Pump:
         self.temperature = temperature
         print(f"Температура насоса {self.pump_id} обновлена до {temperature} °C.")
 
+    def set_power(self, power):
+        """Установка мощности насоса."""
+        if self.status == "on":
+            self.power = power
+            print(f"Мощность насоса {self.pump_id} установлена на {power} кВт.")
+        else:
+            print(f"Насос {self.pump_id} выключен. Сначала включите насос.")
+
+    def get_power(self):
+        """Получение текущей мощности насоса."""
+        return self.power
+
     def __str__(self):
         """Возвращает строку состояния насоса."""
         return (f"Насос {self.pump_id}: Состояние={self.status}, "
@@ -63,12 +78,11 @@ class Pump:
                 f"Температура={self.temperature} °C")
 
 # Пример использования
-# pump1 = Pump(pump_id="P001")
-# print(pump1)
-# pump1.turn_on()
-# pump1.set_speed(1500)
-# pump1.set_pressure(10)
-# pump1.update_temperature(30)
-# print(pump1)
-# pump1.turn_off()
-# print(pump1)
+# pump = Pump(pump_id="P001")
+# pump.turn_on()
+# pump.set_power(15)
+# print(f"Текущая мощность насоса: {pump.get_power()} кВт")
+# print(pump)
+# pump.turn_off()
+# pump.set_power(10)
+# print(pump)
